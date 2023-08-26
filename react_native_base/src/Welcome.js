@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import SidebarMenu from './SidebarMenu';
 
-const Welcome = () => {
+const Welcome = (navigation) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -15,7 +15,7 @@ const Welcome = () => {
       <TouchableOpacity style={styles.menuButton} onPress={toggleSidebar}>
         <Text style={styles.paragraph}>Menu</Text>
       </TouchableOpacity>
-      <SidebarMenu isOpen={isSidebarOpen} onClose={toggleSidebar} />
+      <SidebarMenu isOpen={isSidebarOpen} onClose={toggleSidebar} navigation={navigation} />
     </View>
   );
 };

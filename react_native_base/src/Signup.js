@@ -4,15 +4,35 @@ import Btn from './Btn';
 import { darkGreen } from './Constant';
 const SignUpScreen = (props) => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [EmailId, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [Phoneno, setPhoneno] = useState('');
 
-  const handleSignUp = () => {
-    // Perform sign-up logic here, e.g., create a new user account
-    console.log('Sign-up successful');
-    // Navigate to the login screen or perform other actions
+  const sendData = () => {
+    const dataToSend = {
+      username: username,
+      EmailId: EmailId,
+      Phoneno: Phoneno,
+      Password: Password,
+    };
+
+    fetch('http://localhost:4200/Userdata', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Post response:', data);
+      })
+      .catch(error => {
+        console.error('Error posting data:', error);
+      });
   };
-
+  
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
@@ -32,7 +52,14 @@ const SignUpScreen = (props) => {
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
-     <Btn bgColor='orange' textColor='white' btnLabel="Signup" Press={()=>props.navigation.navigate("Login")}/>
+      <TextInput
+        style={styles.input}
+        placeholder="Phoneno"
+        secureTextEntry
+        onChangeText={text => setPhoneno(text)}
+      />
+     <Btn bgColor='orange' textColor='white' btnLabel="Signup" Press={sendData}/>
+     <Btn bgColor='orange' textColor='white' btnLabel="Login" Press={()=>props.navigation.navigate("Login")}/>
     </View>
   );
 };

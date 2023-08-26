@@ -3,19 +3,28 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Btn from './Btn';
 
 
-
-const SidebarMenu = ({ isOpen, onClose },props) => {
+const SidebarMenu = ({ navigation, isOpen, onClose, }) => {
   if (!isOpen) {
     return null;
   }
 
+  const handleLogin = () => {
+  
+    
+        navigation.navigate("Welcome");
+   
+  };
+
   return (
     <View style={styles.sidebar}>
       <TouchableOpacity style={styles.menuItem} onPress={onClose}>
-      <Btn bgColor='black' textColor='white' btnLabel="Ask Me" Press={()=>props.navigation.navigate("chtgpthome")}/>
+      <Btn bgColor='orange' textColor='white' btnLabel="My Profile" Press={()=>navigation.navigate("UserProfile")}/>
       </TouchableOpacity>
       <TouchableOpacity style={styles.menuItem} onPress={onClose}>
-      <Btn bgColor='black' textColor='white' btnLabel="My Profile" Press={()=>props.navigation.navigate("Login")}/>
+      <Btn bgColor='orange' textColor='white' btnLabel="`Generate Itenary" Press={handleLogin}/>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.menuItem} onPress={onClose}>
+      <Btn bgColor='orange' textColor='white' btnLabel="Itenary history" Press={()=>navigation.navigate("Itenaryhistory")}/>
       </TouchableOpacity>
       {/* Add more menu items here */}
     </View>

@@ -8,8 +8,11 @@ import Home from './src/Home';
 import Login from './src/Login';
 import Signup from './src/Signup';
 import Welcome from './src/Welcome';
-import chtgpthome from './src/chtgpthome';
-import ChatGPT from './src/ChatGPT';
+import UserProfile from './src/UserProfile';
+import ItenaryInput from './src/ItenaryInput';
+import Itenaryhistory from './src/Itenaryhistory';
+import SidebarMenu from './src/SidebarMenu';
+
 
 function HomeScreen() {
   return (
@@ -29,8 +32,10 @@ function App() {
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="Welcome" component={Welcome}/>
         <Stack.Screen name="Signup" component={Signup}/>
-        <Stack.Screen name="chtgpthome" component={chtgpthome}/>
-        <Stack.Screen name="ChatGPT" component={ChatGPT}/>
+        <Stack.Screen name="SidebarMenu" component={SidebarMenu}/>
+        <Stack.Screen name="UserProfile" component={UserProfile}/>
+        <Stack.Screen name="ItenaryInput" component={ItenaryInput}/>
+        <Stack.Screen name="Itenaryhistory" component={Itenaryhistory}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
