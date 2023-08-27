@@ -8,20 +8,14 @@ const SidebarMenu = ({ navigation, isOpen, onClose, }) => {
     return null;
   }
 
-  const handleLogin = () => {
-  
-    
-        navigation.navigate("Welcome");
-   
-  };
 
-  return (
+  return ( 
     <View style={styles.sidebar}>
       <TouchableOpacity style={styles.menuItem} onPress={onClose}>
       <Btn bgColor='orange' textColor='white' btnLabel="My Profile" Press={()=>navigation.navigate("UserProfile")}/>
       </TouchableOpacity>
       <TouchableOpacity style={styles.menuItem} onPress={onClose}>
-      <Btn bgColor='orange' textColor='white' btnLabel="`Generate Itenary" Press={handleLogin}/>
+      <Btn bgColor='orange' textColor='white' btnLabel="Generate Itenary" Press={()=>navigation.navigate("ItenaryInput")}/>
       </TouchableOpacity>
       <TouchableOpacity style={styles.menuItem} onPress={onClose}>
       <Btn bgColor='orange' textColor='white' btnLabel="Itenary history" Press={()=>navigation.navigate("Itenaryhistory")}/>

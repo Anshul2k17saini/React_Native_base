@@ -8,30 +8,27 @@ const SignUpScreen = (props) => {
   const [Password, setPassword] = useState('');
   const [Phoneno, setPhoneno] = useState('');
 
-  const sendData = () => {
+  const sendData = async () => {
     const dataToSend = {
-      username: username,
-      EmailId: EmailId,
-      Phoneno: Phoneno,
-      Password: Password,
+      username:username,                           
+      emailid: EmailId,
+      phoneno: Phoneno,
+      password: Password,
     };
-
-    fetch('http://localhost:4200/Userdata', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Post response:', data);
-      })
-      .catch(error => {
-        console.error('Error posting data:', error);
+    try {
+      const response = await fetch('http://192.168.34.191:8081/addUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
       });
-  };
   
+      const responseData = await response.json();
+      console.log('Post response:', responseData);
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }}
   
   return (
     <View style={styles.container}>

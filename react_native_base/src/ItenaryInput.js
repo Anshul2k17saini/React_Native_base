@@ -15,12 +15,13 @@ export default function Itenaryinput (){
 
 
   const sendData = {
-    departureCountry: departureCountryData,
-    departureCity: departureCityData,
-    arrivalCountry: arrivalCountryData,
-    arrivalCity: arrivalCityData,
-    travelDates: travelDatesData,
-    selectedOption: selectedOptionData,
+    departureCountry: departureCountry,
+    departureCity: departureCity,
+    arrivalCountry: arrivalCountry,
+    arrivalCity: arrivalCity,
+    fromDate: fromDate,
+    toDate:toDate,
+    selectedOption: selectedOption,
   };
 
     const Send_PostRequest_to_chatgpt = async () => {
