@@ -26,7 +26,7 @@ export default function Itenaryinput (){
 
     const Send_PostRequest_to_chatgpt = async () => {
         try {
-          const response = await fetch('http://localhost:8081/userTravelInputsave', {
+          const response = await fetch('http://192.168.34.191:8081/userTravelInputsave', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

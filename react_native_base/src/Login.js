@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity,AsyncStorage, StyleSheet } from 'react-native';
 import Btn from './Btn';
 import { darkGreen } from './Constant';
 const LoginScreen = (props) => {
@@ -8,11 +8,26 @@ const LoginScreen = (props) => {
 
   const handleLogin = () => {
     // Perform login logic here, e.g., validate credentials
-    if (username === 'abc' && password === 'abc@123') {
-        props.navigation.navigate("Welcome")
-    } else {
-      console.log('Login failed');
-    }
+    fetch(`http://192.168.34.191:8081/CheckLoginDetails?username=${username}&password=${password}`)
+      .then(response => response.text())
+      .then(result => {
+        if (result === "Login successful") {
+          // Store the username in AsyncStorage
+          AsyncStorage.setItem('username', username)
+            .then(() => {
+              console.log('Username stored successfully');
+              props.navigation.navigate("Welcome");
+            })
+            .catch(error => {
+              console.error('Error storing username:', error);
+            });
+        } else {
+          console.log('Login failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error checking login details:', error);
+      });
   };
 
   return (
