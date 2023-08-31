@@ -8,19 +8,20 @@ const LoginScreen = (props) => {
 
   const handleLogin = () => {
     // Perform login logic here, e.g., validate credentials
-    fetch(`http://192.168.34.191:8081/CheckLoginDetails?username=${username}&password=${password}`)
+    fetch(`http://192.168.240.191:8081/CheckLoginDetails?username=${username}&password=${password}`)
       .then(response => response.text())
       .then(result => {
-        if (result === "Login successful") {
+        console.log(result);
+        if (result=="true") {
           // Store the username in AsyncStorage
-          AsyncStorage.setItem('username', username)
+         /* AsyncStorage.setItem('username', username)
             .then(() => {
               console.log('Username stored successfully');
-              props.navigation.navigate("Welcome");
             })
             .catch(error => {
               console.error('Error storing username:', error);
-            });
+            });*/
+            props.navigation.navigate("Welcome");
         } else {
           console.log('Login failed');
         }
