@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View} from 'react-native'
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DateTimePicker from 'react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import Btn from './Btn';
 import { darkGreen } from './Constant';
@@ -87,7 +87,7 @@ export default function Itenaryinput (){
         value={arrivalCity}
         onChangeText={text => setArrivalCity(text)}
       />
-      <DatePicker
+      <DateTimePicker
         style={styles.input}
         date={fromDate}
         mode="date"
@@ -97,11 +97,11 @@ export default function Itenaryinput (){
         cancelBtnText="Cancel"
         onDateChange={date => setFromDate(date)}
       />
-      <DatePicker
+      <DateTimePicker
         style={styles.input}
         date={toDate}
         mode="date"
-       // placeholder="Select To Date"
+        placeholder="Select To Date"
         format="YYYY-MM-DD"
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
@@ -109,7 +109,7 @@ export default function Itenaryinput (){
       />
       <Picker
        style={styles.input}
-        selectedValue={setSelectedOption}
+        selectedValue={selectedOption}
         onValueChange={(itemValue) => setSelectedOption(itemValue)}
       >
         <Picker.Item label="Option 1" value="option1" />
