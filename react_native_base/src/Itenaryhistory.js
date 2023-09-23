@@ -11,7 +11,7 @@ export default function Itenaryhistory () {
   [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('https://api.example.com/data') // Replace with your API endpoint
+    fetch('http://192.168.107.191:8081/userTravelInputsave?username=${username}') // Replace with your API endpoint
       .then(response => response.json())
       .then(jsonData => {
         setData(jsonData);
@@ -20,7 +20,6 @@ export default function Itenaryhistory () {
         console.error('Error fetching data:', error);
       });
   }, []);
-
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

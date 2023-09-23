@@ -7,8 +7,9 @@ const LoginScreen = (props) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
+    props.navigation.navigate("Welcome");
     // Perform login logic here, e.g., validate credentials
-    fetch(`http://192.168.240.191:8081/CheckLoginDetails?username=${username}&password=${password}`)
+    /*fetch(`http://192.168.56.255:8081/CheckLoginDetails?username=${username}&password=${password}`)
       .then(response => response.text())
       .then(result => {
         console.log(result);
@@ -20,7 +21,7 @@ const LoginScreen = (props) => {
             })
             .catch(error => {
               console.error('Error storing username:', error);
-            });*/
+            });
             props.navigation.navigate("Welcome");
         } else {
           console.log('Login failed');
@@ -28,7 +29,7 @@ const LoginScreen = (props) => {
       })
       .catch(error => {
         console.error('Error checking login details:', error);
-      });
+      });*/
   };
 
   return (
