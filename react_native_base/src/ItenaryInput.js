@@ -16,9 +16,10 @@ export default function Itenaryinput() {
   const [toDate, setToDate] = useState(null);
   const [selectedOption, setSelectedOption] = useState('Option 1');
   const [openbutton, setOpenbutton] = useState(false);
-  const [closebutton, setClosebutton] = useState(false);
+  const [openbutton2, setopenbutton2] = useState(false);
   
-
+  console.log(fromDate)
+  console.log(toDate)
   const sendData = {
     departureCountry: departureCountry,
     departureCity: departureCity,
@@ -74,36 +75,55 @@ export default function Itenaryinput() {
         value={arrivalCity}
         onChangeText={text => setArrivalCity(text)}
       />
-      <Pressable onPress={(
-        setOpenbutton(true)
-      )}>
-        <TextInput
-        style={styles.input}
-        value={fromDate || new Date()}
-        mode="date" // Set to "date" for the From Date picker
-        placeholder="Select From Date"
-        format="YYYY-MM-DD"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        onChange={(event, selectedDate) => {
-          const currentDate = selectedDate || fromDate;
-          setFromDate(currentDate);
-        }}/>
-        </Pressable>
-      <DateTimePicker
-        style={styles.input}
-        value={toDate || new Date()}
-        mode="date" // Set to "date" for the To Date picker
-        placeholder="Select To Date"
-        format="YYYY-MM-DD"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
+<Pressable onPress={() => setOpenbutton(true)}>
+  <Text>
+    {fromDate} {/* Wrap the text inside a Text component */}
+  </Text>
+  <TextInput
+    placeholder="Select From Date"
+    editable={false}
+  />
+</Pressable>
+<Pressable onPress={() => setopenbutton2(true)}>
+  <Text>
+    {toDate} {/* Wrap the text inside a Text component */}
+  </Text>
+  <TextInput
+    placeholder="Select To Date"
+    editable={false}
+  />
+</Pressable>
+{openbutton && (
+  <DateTimePicker
+    value={new Date()}
+    mode="date"
+    onChange={(event, selectedDate) => {
+      setOpenbutton(false);
+      if (event.type === 'set') {
+        setFromDate(selectedDate.toLocaleDateString());
+        console.log('From Date set successfully');
+      } else {
+        console.log('From Date not set');
+      }
+    }}
+  />
+)}
 
-        onChange={(event, selectedDate) => {
-          const currentDate = selectedDate || toDate;
-          setToDate(currentDate);
-        }}
-      />
+{openbutton2 && (
+  <DateTimePicker
+    value={new Date()}
+    mode="date"
+    onChange={(event, selectedDate) => {
+      setopenbutton2(false);
+      if (event.type === 'set') {
+        setToDate(selectedDate.toLocaleDateString());
+        console.log('To Date set successfully');
+      } else {
+        console.log('To Date not set');
+      }
+    }}
+  />
+)}
       <Picker
         style={styles.input}
         selectedValue={selectedOption}
