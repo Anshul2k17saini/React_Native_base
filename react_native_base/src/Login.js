@@ -5,9 +5,24 @@ import { darkGreen } from './Constant';
 const LoginScreen = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [usernameError, setusernameError] = useState('');
 
   const handleLogin = () => {
-    props.navigation.navigate("Welcome");
+   
+    const validateUsername = () => {
+      if (username === ''|| password==='') {
+        setusernameError('*Required Field');
+        return false;
+      } else {
+        setusernameError('');
+        return true;
+      }
+    };
+  
+    if(validateUsername()===true)
+    {
+      props.navigation.navigate("Welcome");
+    }
     // Perform login logic here, e.g., validate credentials
     /*fetch(`http://192.168.56.255:8081/CheckLoginDetails?username=${username}&password=${password}`)
       .then(response => response.text())
@@ -35,44 +50,69 @@ const LoginScreen = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
+      <View>
       <TextInput
-        style={styles.input}
+         style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
         placeholder="Username"
-        onChangeText={text => setUsername(text)}
+        onChangeText={text => setUsername(text)} 
       />
+      {usernameError && <Text style={styles.error}>{usernameError}</Text>}
+      </View>
+      <View>
       <TextInput
-        style={styles.input}
+        style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
         placeholder="Password"
-        secureTextEntry
-        onChangeText={text => setPassword(text)}
+        onChangeText={text => setPassword(text)} 
       />
+      {usernameError && <Text style={styles.error}>{usernameError}</Text>}
+      </View>
+    <View style={{marginTop: 50, alignItems: "center"}}>
      <Btn bgColor={darkGreen} textColor='white' btnLabel="Login" Press={handleLogin}/>
+     </View>
+     <View>
+     <Btn bgColor='orange' textColor='white' btnLabel="Signin" Press={()=>props.navigation.navigate("Signup")}/>
+     </View>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      padding: 20,
-    },
-    title: {
-      fontSize:60,
-      marginHorizontal:40,
-      marginVertical:50
-    },
-    input: {
-      width: '100%',
-      height: 60,
-      borderColor: 'black',
-      borderWidth: 5,
-      borderRadius: 8,
-      marginBottom: 15,
-      paddingLeft: 10,
-    },
-  
-  });
-
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 40,
+    // marginHorizontal: 30,
+    marginVertical: 40,
+    // borderWidth: 1,
+    // textAlign: "center",
+    fontWeight: "600"
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    borderColor: '#ccc',
+    // borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    borderBottomWidth: 1,
+    // marginBottom: 5,
+    // marginBottom: 10,
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+  errorBorder: {
+    borderColor: 'red', // Change the border color to red on validation error
+  },
+  error: {
+    color: 'red',
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+})
 export default LoginScreen;

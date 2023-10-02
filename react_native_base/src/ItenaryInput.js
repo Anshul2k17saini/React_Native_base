@@ -14,12 +14,13 @@ export default function Itenaryinput() {
   const [arrivalCity, setArrivalCity] = useState('');
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
-  const [selectedOption, setSelectedOption] = useState('Option 1');
+  const [selectedOption, setSelectedOption] = useState('select a option');
   const [openbutton, setOpenbutton] = useState(false);
   const [openbutton2, setopenbutton2] = useState(false);
+  const [ErrorText, setErrorText] = useState('');
   
-  console.log(fromDate)
-  console.log(toDate)
+ // console.log(fromDate)
+  //console.log(toDate)
   const sendData = {
     departureCountry: departureCountry,
     departureCity: departureCity,
@@ -31,6 +32,20 @@ export default function Itenaryinput() {
   };
 
   const Send_PostRequest_to_chatgpt = async () => {
+   
+    const rulesForValidate = () => {
+      if (departureCountry === ''|| arrivalCountry===''|| fromDate === null || toDate === null || selectedOption ==='select a option') {
+        setErrorText('*Required Field');
+        return false;
+      } else {
+        setErrorText('');
+        return true;
+      }
+    };
+  
+
+if(rulesForValidate() === true){
+
     try {
       const response = await fetch('http://192.168.240.191:8081/userTravelInputsave', {
         method: 'POST',
@@ -46,35 +61,48 @@ export default function Itenaryinput() {
     } catch (error) {
       console.error('Error sending POST request:', error);
     }
+
+  }
+
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>ItenaryInput</Text>
+      <View>
       <TextInput
-        style={styles.input}
+        style={[styles.input, ErrorText && styles.errorBorder]}
         placeholder="Departure Country"
         value={departureCountry}
         onChangeText={text => setDepartureCountry(text)}
       />
+      {ErrorText && <Text style={styles.error}>{ErrorText}</Text>}
+      </View>
+      <View>
       <TextInput
         style={styles.input}
         placeholder="Departure City"
         value={departureCity}
         onChangeText={text => setDepartureCity(text)}
       />
+      </View>
+      <View>
       <TextInput
-        style={styles.input}
+        style={[styles.input, ErrorText && styles.errorBorder]}
         placeholder="Arrival Country"
         value={arrivalCountry}
         onChangeText={text => setArrivalCountry(text)}
       />
+      {ErrorText && <Text style={styles.error}>{ErrorText}</Text>}
+      </View>
+      <View>
       <TextInput
         style={styles.input}
         placeholder="Arrival City"
         value={arrivalCity}
         onChangeText={text => setArrivalCity(text)}
       />
+      </View>
 <Pressable onPress={() => setOpenbutton(true)}>
   <Text>
     {fromDate} {/* Wrap the text inside a Text component */}
@@ -144,21 +172,37 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     padding: 20,
   },
   title: {
-    fontSize: 60,
-    marginHorizontal: 40,
-    marginVertical: 50
+    fontSize: 40,
+    // marginHorizontal: 30,
+    marginVertical: 40,
+    // borderWidth: 1,
+    // textAlign: "center",
+    fontWeight: "600"
   },
   input: {
     width: '100%',
-    height: 60,
-    borderColor: 'black',
-    borderWidth: 5,
-    borderRadius: 8,
-    marginBottom: 15,
-    paddingLeft: 10,
+    height: 50,
+    borderColor: '#ccc',
+    // borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    borderBottomWidth: 1,
+    // marginBottom: 5,
+    // marginBottom: 10,
+    marginTop: 10,
+    fontSize: 16,
+    color: '#333',
+  },
+  errorBorder: {
+    borderColor: 'red', // Change the border color to red on validation error
+  },
+  error: {
+    color: 'red',
+    paddingTop: 5,
+    paddingBottom: 5
   },
 });

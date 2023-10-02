@@ -35,7 +35,7 @@ const Testingusefile = () => {
     <View style={styles.container}>
       <Text>Email:</Text>
       <TextInput
-        style={[styles.input, emailError && styles.errorBorder]}
+        style={[styles.input, emailError && styles.errorBorder]}//if condition for style
         value={email}
         onChangeText={(text) => setEmail(text)}
         onBlur={validateEmail}
