@@ -66,11 +66,11 @@ const LoginScreen = (props) => {
       />
       {usernameError && <Text style={styles.error}>{usernameError}</Text>}
       </View>
-    <View style={{marginTop: 50, alignItems: "center"}}>
-     <Btn bgColor={darkGreen} textColor='white' btnLabel="Login" Press={handleLogin}/>
+     <View style={{marginTop: 50, alignItems: "center"}}>
+      <Btn bgColor='purple' textColor='white' btnLabel="Login" Press={handleLogin}/>
      </View>
-     <View>
-     <Btn bgColor='orange' textColor='white' btnLabel="Signin" Press={()=>props.navigation.navigate("Signup")}/>
+     <View style={{marginTop: 10, alignItems: "center",}}>
+      <Btn  bgColor='blue' textColor='white'  btnLabel="Signin" Press={()=>props.navigation.navigate("Signup")}/>
      </View>
 
     </View>

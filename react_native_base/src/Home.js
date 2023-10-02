@@ -8,19 +8,26 @@ export default function Home(props) {
     props.navigation.navigate("Login");
 }
     return (
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View>
+        <Image source={require('./assets/travel.png')} style={styles.appLogo} />
+      </View>
+      <View>
       <Text style={styles.title}>Welcome to Sample App</Text>
+      </View>
+      <View>
       <Text style={styles.description}>Confuse how to plan a trip, no problem</Text>
+      </View>
       <View>
        <Btn bgColor={darkGreen} textColor='white' btnLabel="Let's get started" Press={getstartedbtn}/>
-     </View>
+      </View>
     </View>
     );
   }
   const styles = StyleSheet.create({
     container: {
       marginHorizontal:40,
-      marginVertical:250
+      marginVertical:250,
     },
     appLogo: {
       width: 200,
@@ -32,8 +39,10 @@ export default function Home(props) {
       marginBottom: 10,
     },
     description: {
-      fontSize: 16,
+      fontSize: 40,
       marginBottom: 20,
+      marginTop: 20,
+      marginBottom:20
     },
     getStartedButton: {
       backgroundColor: '#007bff',
