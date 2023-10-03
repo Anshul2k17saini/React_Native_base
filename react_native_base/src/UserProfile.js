@@ -1,18 +1,16 @@
-import { Text, StyleSheet, View } from 'react-native'
-import React, { useState,useEffect,Modal, TextInput, Button} from 'react'
+import { Text, StyleSheet, View, Modal, TextInput, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
 
-export default function UserProfile (){
+export default function UserProfile() {
+  const datae = {
+    name: '',
+    age: '',
+    email: '',
+  };
 
-    const datae = {
-        name: '',
-        age: '',
-        email: '',
-      };
-      
   const [data, setData] = useState(datae);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
@@ -37,22 +35,20 @@ export default function UserProfile (){
     </View>
   );
 
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {data.map((data, index) => (
-          <View key={index} style={{ marginBottom: 20 }}>
-            <Text>Name: {data.name}</Text>
-            <Text>Age: {data.age}</Text>
-          </View>
-        ))}
-        <View style={styles.container}>
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ marginBottom: 20 }}>
+        <Text>Name: {data.name}</Text>
+        <Text>Age: {data.age}</Text>
+      </View>
+      <View style={styles.container}>
         <Button title="Edit Profile" onPress={toggleModal} />
         <Modal visible={isModalVisible} animationType="slide">
           {updateform}
         </Modal>
-        </View>
       </View>
-    )
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
