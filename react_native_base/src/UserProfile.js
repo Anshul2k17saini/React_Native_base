@@ -1,15 +1,15 @@
 import { Text, StyleSheet, View } from 'react-native'
-import React, { useState,useEffect,Modal} from 'react'
+import React, { useState,useEffect,Modal, TextInput, Button} from 'react'
 
 export default function UserProfile (){
 
-    const data = {
+    const datae = {
         name: '',
         age: '',
         email: '',
       };
       
-  [data, setData] = useState(null);
+  const [data, setData] = useState(datae);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   
@@ -39,7 +39,7 @@ export default function UserProfile (){
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {Data.map((data, index) => (
+        {data.map((data, index) => (
           <View key={index} style={{ marginBottom: 20 }}>
             <Text>Name: {data.name}</Text>
             <Text>Age: {data.age}</Text>
