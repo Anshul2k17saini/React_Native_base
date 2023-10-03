@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity,AsyncStorage, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity,AsyncStorage, StyleSheet,Image, ImageBackground } from 'react-native';
 import Btn from './Btn';
 import { darkGreen } from './Constant';
 const LoginScreen = (props) => {
@@ -67,7 +67,7 @@ const LoginScreen = (props) => {
       {usernameError && <Text style={styles.error}>{usernameError}</Text>}
       </View>
      <View style={{marginTop: 50, alignItems: "center"}}>
-      <Btn bgColor='purple' textColor='white' btnLabel="Login" Press={handleLogin}/>
+      <Btn bgColor='#a75bfe' textColor='white' btnLabel="Login" Press={handleLogin}/>
      </View>
      <View style={{marginTop: 10, alignItems: "center",}}>
       <Btn  bgColor='blue' textColor='white'  btnLabel="Signin" Press={()=>props.navigation.navigate("Signup")}/>
