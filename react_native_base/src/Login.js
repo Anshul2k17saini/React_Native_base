@@ -62,6 +62,7 @@ const LoginScreen = (props) => {
       <TextInput
         style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
         placeholder="Password"
+        secureTextEntry={true} 
         onChangeText={text => setPassword(text)} 
       />
       {usernameError && <Text style={styles.error}>{usernameError}</Text>}

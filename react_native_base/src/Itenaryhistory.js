@@ -1,5 +1,5 @@
 import { Text, StyleSheet, View } from 'react-native'
-import React, { Component } from 'react'
+import React, { useState} from 'react'
 
 export default function Itenaryhistory () {
     const data = {
@@ -11,13 +11,13 @@ export default function Itenaryhistory () {
       fromDate: '',
       toDate: '',
       selectedOption: '',
-      chatgptresponse: ''
+      chatgptresponse: '',
 
       };
       
-  [data, setData] = useState(null);
+  //[data, setData] = useState(null);
 
-  useEffect(() => {
+ /* useEffect(() => {
     fetch('http://192.168.107.191:8081/userTravelInputByUsername?username=${username}') // Replace with your API endpoint
       .then(response => response.json())
       .then(jsonData => {
@@ -26,23 +26,19 @@ export default function Itenaryhistory () {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, []);*/
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {data.map((data, index) => (
-          <View key={index} style={{ marginBottom: 20 }}>
-            <Text>DepartureCountry: {data.departureCountry}</Text>
-            <Text>DepartureCity: {data.departureCity}</Text>
-            <Text>ArrivalCountry: {data.arrivalCountry}</Text>
-            <Text>ArrivalCity: {data.arrivalCity}</Text>
-            <Text>From: {data.fromDate}</Text>
-            <Text>To: {data.toDate}</Text>
-            <Text>TripType: {data.selectedOption}</Text>
-            <Text>Itenairy: {data.chatgptresponse}</Text>
-          </View>
-        ))}
+      <View style={{ marginBottom: 20, width: "100%", paddingHorizontal: 25 }}>
+      <View style={{ backgroundColor: "rgba(210, 215, 211, .5)", padding: 5, borderRadius: 10, paddingHorizontal: 10}}>
+        <Text style={{ }}>Name:</Text>
+        <Text style={{ fontSize: 26 }}>{data?.name}</Text>
       </View>
+      <View style={{marginTop: 20,  backgroundColor: "rgba(210, 215, 211, .5)", padding: 5, borderRadius: 10, paddingHorizontal: 10}}>
+        <Text style={{ }}>Age:</Text>
+        <Text style={{ fontSize: 26 }}>{data?.age}</Text>
+      </View>
+    </View>
     )
 }
 

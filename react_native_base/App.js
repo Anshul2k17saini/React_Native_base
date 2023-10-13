@@ -12,7 +12,6 @@ import UserProfile from './src/UserProfile';
 import ItenaryInput from './src/ItenaryInput';
 import Itenaryhistory from './src/Itenaryhistory';
 import SidebarMenu from './src/SidebarMenu';
-import Testingusefile from './src/Testingusefile';
 
 
 function HomeScreen() {
@@ -37,7 +36,6 @@ function App() {
         <Stack.Screen name="UserProfile" component={UserProfile}/>
         <Stack.Screen name="ItenaryInput" component={ItenaryInput}/>
         <Stack.Screen name="Itenaryhistory" component={Itenaryhistory}/>
-        <Stack.Screen name="Testingusefile" component={Testingusefile}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
