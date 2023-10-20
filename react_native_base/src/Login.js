@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity,AsyncStorage, StyleSheet,Image, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, AsyncStorage, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
 import Btn from './Btn';
-import { darkGreen } from './Constant';
 const LoginScreen = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameError, setusernameError] = useState('');
+  const [showPassword, setShowPassword] = useState(true);
 
   const handleLogin = () => {
-   
+
     const validateUsername = () => {
-      if (username === ''|| password==='') {
+      if (username === '' || password === '') {
         setusernameError('*Required Field');
         return false;
       } else {
@@ -18,9 +18,8 @@ const LoginScreen = (props) => {
         return true;
       }
     };
-  
-    if(validateUsername()===true)
-    {
+
+    if (validateUsername() === true) {
       props.navigation.navigate("Welcome");
     }
     // Perform login logic here, e.g., validate credentials
@@ -51,28 +50,37 @@ const LoginScreen = (props) => {
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <View>
-      <TextInput
-         style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
-        placeholder="Username"
-        onChangeText={text => setUsername(text)} 
-      />
-      {usernameError && <Text style={styles.error}>{usernameError}</Text>}
+        <TextInput
+          style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
+          placeholder="Username"
+          onChangeText={text => setUsername(text)}
+        />
+        {usernameError && <Text style={styles.error}>{usernameError}</Text>}
       </View>
       <View>
-      <TextInput
-        style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
-        placeholder="Password"
-        secureTextEntry={true} 
-        onChangeText={text => setPassword(text)} 
-      />
-      {usernameError && <Text style={styles.error}>{usernameError}</Text>}
+        <TextInput
+          style={[styles.input, usernameError && styles.errorBorder]}//if condition for style
+          placeholder="Password"
+          secureTextEntry={showPassword}
+          onChangeText={text => setPassword(text)}
+        />
+        <Pressable onPress={() => setShowPassword(!showPassword)}>
+          <Text style={{ textAlign: "right", marginTop: 10 }}>{showPassword ? "Show password" : "Hide password "}</Text>
+        </Pressable>
+        {usernameError && <Text style={styles.error}>{usernameError}</Text>}
       </View>
-     <View style={{marginTop: 50, alignItems: "center"}}>
-      <Btn bgColor='#a75bfe' textColor='white' btnLabel="Login" Press={handleLogin}/>
-     </View>
-     <View style={{marginTop: 10, alignItems: "center",}}>
-      <Btn  bgColor='blue' textColor='white'  btnLabel="Signin" Press={()=>props.navigation.navigate("Signup")}/>
-     </View>
+      <View style={{ marginTop: 50, alignItems: "center" }}>
+        <Btn bgColor='#a75bfe' textColor='white' btnLabel="Login" Press={handleLogin} />
+      </View>
+      <View style={{ marginTop: 10, alignItems: "center"}}>
+        {/* <Btn bgColor='blue' textColor='white' btnLabel="Signin" Press={() => props.navigation.navigate("Signup")} /> */}
+        <View style={{flexDirection: "row"}}>
+          <Text style={{paddingRight: 5}}>Create new account !</Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate("Signup")}>
+          <Text style={{color: "#a75bfe", borderBottomWidth: 1, borderBottomColor: "#a75bfe", paddingBottom: 2}} o>Signup</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
     </View>
   );
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   input: {
-    width: '100%',
+    // width: '100%',
     height: 50,
     borderColor: '#ccc',
     // borderWidth: 1,
