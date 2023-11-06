@@ -20,30 +20,33 @@ const LoginScreen = (props) => {
     };
 
     if (validateUsername() === true) {
+
       props.navigation.navigate("Welcome");
-    }
+    
     // Perform login logic here, e.g., validate credentials
-    /*fetch(`http://192.168.56.255:8081/CheckLoginDetails?username=${username}&password=${password}`)
-      .then(response => response.text())
-      .then(result => {
-        console.log(result);
-        if (result=="true") {
-          // Store the username in AsyncStorage
-         /* AsyncStorage.setItem('username', username)
-            .then(() => {
-              console.log('Username stored successfully');
-            })
-            .catch(error => {
-              console.error('Error storing username:', error);
-            });
-            props.navigation.navigate("Welcome");
-        } else {
-          console.log('Login failed');
-        }
-      })
-      .catch(error => {
-        console.error('Error checking login details:', error);
-      });*/
+   /* fetch(`http://192.168.154.191:8082/CheckLoginDetails?username=${username}&password=${password}`)
+    .then(response => response.text())
+    .then(result => {
+      console.log(result);
+      if (result === "true") {
+        // Store the username in AsyncStorage
+        /*AsyncStorage.setItem('username', username)
+          .then(() => {
+            console.log('Username stored successfully');
+          })
+          .catch(error => {
+            console.error('Error storing username:', error);
+          });
+        props.navigation.navigate("Welcome");
+      } else {
+        console.log('Login failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error checking login details:', error);
+    });*/
+
+  }
   };
 
   return (

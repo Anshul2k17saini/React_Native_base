@@ -20,9 +20,6 @@ const Welcome = ({navigation}) => {
       <TouchableOpacity style={styles.menuItem} >
       <Btn bgColor='#a75bfe' textColor='white' btnLabel="Generate Itenary" Press={()=>navigation.navigate("ItenaryInput")}/>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.menuItem}>
-      <Btn bgColor='#a75bfe' textColor='white' btnLabel="Itenary history" Press={()=>navigation.navigate("Itenaryhistory")}/>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.menuButton} >
       </TouchableOpacity>
       <SidebarMenu isOpen={isSidebarOpen} onClose={toggleSidebar} navigation={navigation} />

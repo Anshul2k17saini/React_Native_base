@@ -82,7 +82,7 @@ const SignUpScreen = (props) => {
         password: Password,
       };
       try {
-        const response = await fetch('http://192.168.34.191:8081/addUser', {
+        const response = await fetch('http://192.168.154.191:8082/addUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -92,10 +92,11 @@ const SignUpScreen = (props) => {
 
         const responseData = await response.json();
         console.log('Post response:', responseData);
+        props.navigation.navigate("Login");
       } catch (error) {
         console.error('Error posting data:', error);
       }
-      props.navigation.navigate("Login");
+      console.log('data to send ', dataToSend);
     }
   }
 

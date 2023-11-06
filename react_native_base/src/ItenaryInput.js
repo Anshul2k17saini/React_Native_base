@@ -6,7 +6,7 @@ import { Picker } from '@react-native-picker/picker';
 import Btn from './Btn';
 import { darkGreen } from './Constant';
 
-export default function Itenaryinput() {
+export default function Itenaryinput(props) {
   const [response, setResponse] = useState('');
   const [departureCountry, setDepartureCountry] = useState('');
   const [departureCity, setDepartureCity] = useState('');
@@ -46,21 +46,20 @@ export default function Itenaryinput() {
 
 if(rulesForValidate() === true){
 
-    try {
-      const response = await fetch('http://192.168.240.191:8081/userTravelInputsave', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ sendData }), // Replace with your data
-      });
-      const data = await response.text();
-      setResponse(data);
-      props.navigation.navigate("chatgptresponse", { data: response });
-
-    } catch (error) {
-      console.error('Error sending POST request:', error);
-    }
+  try {
+    const response = await fetch('http://192.168.154.191:8082/userTravelInputsave', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(sendData), // Remove the curly braces
+    });
+    const data = await response.text();
+    setResponse(data);
+    //props.navigation.navigate("chatgptresponse", { data: response });
+  } catch (error) {
+    console.error('Error sending POST request:', error);
+  }
 
   }
 
@@ -157,9 +156,10 @@ if(rulesForValidate() === true){
         selectedValue={selectedOption}
         onValueChange={(itemValue) => setSelectedOption(itemValue)}
       >
-        <Picker.Item label="Option 1" value="option1" />
-        <Picker.Item label="Option 2" value="option2" />
-        <Picker.Item label="Option 3" value="option3" />
+        <Picker.Item label="Advantures" value="Advantures" />
+        <Picker.Item label="Normal" value="Normal" />
+        <Picker.Item label="select one" value="select one" />
+        <Picker.Item label="Historical" value="" />
       </Picker>
       <TouchableOpacity>
         <Btn bgColor={darkGreen} textColor='white' btnLabel="get itinerary" Press={Send_PostRequest_to_chatgpt} />
