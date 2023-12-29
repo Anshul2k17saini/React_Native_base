@@ -5,7 +5,8 @@ import { darkGreen } from './Constant';
 export default function Home(props) {
 
   const getstartedbtn = () => {
-    props.navigation.navigate("Login");
+    //props.navigation.navigate("Login");
+    props.navigation.navigate("Welcome");
   }
   return (
     // <View style={styles.container}>
@@ -16,7 +17,7 @@ export default function Home(props) {
           </View>
           <View>
             <View>
-              <Text style={styles.description}>Confuse how to plan a trip!</Text>
+              <Text style={styles.description}>Feeling lost in trip planning? Let's turn confusion into excitement! 🌍✨ Plan your adventure effortlessly with us.</Text>
             </View>
           </View>
           <View style={{alignItems: "center", marginTop: 20}}>
@@ -44,14 +45,13 @@ const styles = StyleSheet.create({
     // color: "white"
   },
   description: {
-    fontSize: 35,
-    // marginBottom: 20,
-    // marginTop: 20,
-    marginLeft:50,
-    marginRight:50,
-     marginBottom: 20,
-    textAlign: "justify",
-    // color: "white"
+    fontSize: 20,
+    marginLeft: 30,
+    marginRight: 30,
+    marginBottom: 20,
+    textAlign: "center",
+    color: "black",
+    lineHeight: 30,  // Adjust line height for better readability
 
   },
   getStartedButton: {

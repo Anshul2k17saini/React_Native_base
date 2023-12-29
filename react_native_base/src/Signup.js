@@ -82,7 +82,7 @@ const SignUpScreen = (props) => {
         password: Password,
       };
       try {
-        const response = await fetch('http://192.168.154.191:8082/addUser', {
+        const response = await fetch('http://192.168.122.191:8082/addUser', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, AsyncStorage, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Btn from './Btn';
 const LoginScreen = (props) => {
   const [username, setUsername] = useState('');
@@ -9,12 +10,15 @@ const LoginScreen = (props) => {
 
   const handleLogin = () => {
 
-    const validateUsername = () => {
+    const validateUsername = async () => {
       if (username === '' || password === '') {
         setusernameError('*Required Field');
         return false;
       } else {
         setusernameError('');
+        await AsyncStorage.setItem("username", username)
+        await AsyncStorage.setItem("password", password)
+        props.navigation.navigate("Welcome");
         return true;
       }
     };
@@ -24,19 +28,11 @@ const LoginScreen = (props) => {
       props.navigation.navigate("Welcome");
     
     // Perform login logic here, e.g., validate credentials
-   /* fetch(`http://192.168.154.191:8082/CheckLoginDetails?username=${username}&password=${password}`)
+    /*fetch(`http://192.168.122.191:8082/CheckLoginDetails?username=${username}&password=${password}`)
     .then(response => response.text())
     .then(result => {
       console.log(result);
       if (result === "true") {
-        // Store the username in AsyncStorage
-        /*AsyncStorage.setItem('username', username)
-          .then(() => {
-            console.log('Username stored successfully');
-          })
-          .catch(error => {
-            console.error('Error storing username:', error);
-          });
         props.navigation.navigate("Welcome");
       } else {
         console.log('Login failed');
@@ -45,7 +41,6 @@ const LoginScreen = (props) => {
     .catch(error => {
       console.error('Error checking login details:', error);
     });*/
-
   }
   };
 

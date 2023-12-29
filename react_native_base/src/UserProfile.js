@@ -21,20 +21,7 @@ export default function UserProfile() {
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
-  };
-
-  // useEffect(() => {
-  //   fetch('https://api.example.com/data') // Replace with your API endpoint
-  //     .then(response => response.json())
-  //     .then(jsonData => {
-  //       setData(jsonData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
-
-  /*fetch('https://api.example.com/users/${username}', {
+    fetch(`http://192.168.122.191:8081/updateUser/username=${username}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -54,8 +41,20 @@ export default function UserProfile() {
     .catch(error => {
       console.error('Error in updating user data:', error.message);
       // Handle error or show an error message
-    });*/
+    });
+    
+  };
 
+  // useEffect(() => {
+  //   fetch('https://api.example.com/data') // Replace with your API endpoint
+  //     .then(response => response.json())
+  //     .then(jsonData => {
+  //       setData(jsonData);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //     });
+  // }, []);
 
   const updateform = (
     <View style={styles.containerofSaveinput}>
@@ -90,7 +89,7 @@ export default function UserProfile() {
           placeholder="Confirm Password"
           placeholderTextColor={"grey"}
           secureTextEntry={true} 
-          onChangeText={text => setConfPassword(text)}
+         ///onChangeText={text => setConfPassword(text)}
           />
       </View>
       <View>

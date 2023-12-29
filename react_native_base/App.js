@@ -12,6 +12,7 @@ import UserProfile from './src/UserProfile';
 import ItenaryInput from './src/ItenaryInput';
 import Itenaryhistory from './src/Itenaryhistory';
 import SidebarMenu from './src/SidebarMenu';
+import Chatgptresponse from './src/Chatgptresponse';
 
 
 function HomeScreen() {
@@ -36,6 +37,7 @@ function App() {
         <Stack.Screen name="UserProfile" component={UserProfile}/>
         <Stack.Screen name="ItenaryInput" component={ItenaryInput}/>
         <Stack.Screen name="Itenaryhistory" component={Itenaryhistory}/>
+        <Stack.Screen name="Chatgptresponse" component={Chatgptresponse}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
