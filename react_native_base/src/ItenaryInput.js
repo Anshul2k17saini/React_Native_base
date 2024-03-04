@@ -51,7 +51,7 @@ export default function Itenaryinput(props) {
         Keyboard.dismiss()
         setLoader(true)
         console.log("hello befor response");
-        const response = await fetch('http://192.168.183.191:8081/userTravelInputsave', {
+        const response = await fetch('http://192.168.114.191:5000/userTravelInputsave', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

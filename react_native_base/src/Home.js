@@ -12,12 +12,16 @@ export default function Home(props) {
     // <View style={styles.container}>
       <ImageBackground source={require('./assets/purple.png')} resizeMode="cover" style={styles.bgImage}>
         <View style={{ flex: 1 }}>
-          <View style={{ alignItems: "center", paddingTop: 150, paddingBottom: 250 }}>
-            <Text style={{ fontSize: 60 }}>Welcome</Text>
+          <View style={{ alignItems: "center", paddingTop: 150, paddingBottom: 100 }}>
+            <Text style={{ fontSize: 60 }}>TravelITR</Text>
+            <View>
+              <Image style={{height: 150, width: 150, marginTop: 50}} source={require('./assets/travel.png')} />
+            </View>
           </View>
           <View>
             <View>
               <Text style={styles.description}>Feeling lost in trip planning? Let's turn confusion into excitement! 🌍✨ Plan your adventure effortlessly with us.</Text>
+              <Text></Text>
             </View>
           </View>
           <View style={{alignItems: "center", marginTop: 20}}>
@@ -48,7 +52,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 30,
     marginRight: 30,
-    marginBottom: 20,
     textAlign: "center",
     color: "black",
     lineHeight: 30,  // Adjust line height for better readability

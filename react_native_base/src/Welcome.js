@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Pressable, Image } from 'react-native';
 import SidebarMenu from './SidebarMenu';
 import Btn from './Btn';
 import { AntDesign } from '@expo/vector-icons';
@@ -28,6 +28,7 @@ const Welcome = ({ navigation }) => {
           <AntDesign name="logout" size={24} color="black" />
       </Pressable>
       <View style={styles.container}>
+        <Image source={require("./assets/mainicon.png")} style={{height: 100, width: 100}} />
         <Text style={styles.paragraph}>Explore new places with personalized plans. Welcome</Text>
         <TouchableOpacity style={styles.menuItem} >
           <Btn bgColor='#a75bfe' textColor='white' btnLabel="Generate Itenary" Press={() => navigation.navigate("ItenaryInput")} />

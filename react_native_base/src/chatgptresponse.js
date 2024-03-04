@@ -7,7 +7,7 @@ const Chatgptresponse = ({ route }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.responseContainer}>
-        <Text style={styles.title}>Your Itinerary Response from ChatGPT</Text>
+        <Text style={styles.title}>Your Itinerary</Text>
         <Text style={styles.responseText}>{data}</Text>
       </View>
     </ScrollView>

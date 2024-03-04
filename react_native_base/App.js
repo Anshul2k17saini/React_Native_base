@@ -12,7 +12,7 @@ import UserProfile from './src/UserProfile';
 import ItenaryInput from './src/ItenaryInput';
 import Itenaryhistory from './src/Itenaryhistory';
 import SidebarMenu from './src/SidebarMenu';
-import Chatgptresponse from './src/Chatgptresponse';
+import Chatgptresponse from './src/chatgptresponse'
 
 
 function HomeScreen() {
