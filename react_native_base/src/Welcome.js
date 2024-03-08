@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    width:'100%',
+    height:'100%'
   },
   menuButton: {
     padding: 10,
@@ -60,6 +62,8 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     alignItems: "center",
+    width:'100%',
+    height:'100%'
   }
 });
 

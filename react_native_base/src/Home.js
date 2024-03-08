@@ -10,8 +10,8 @@ export default function Home(props) {
   }
   return (
     // <View style={styles.container}>
-      <ImageBackground source={require('./assets/purple.png')} resizeMode="cover" style={styles.bgImage}>
-        <View style={{ flex: 1 }}>
+      <ImageBackground  source={require('./assets/purple.png')} resizeMode="cover" style={styles.bgImage}>
+        <View style={{ flex: 1, width:'100%',height: '100%'}}>
           <View style={{ alignItems: "center", paddingTop: 150, paddingBottom: 100 }}>
             <Text style={{ fontSize: 60 }}>TravelITR</Text>
             <View>
@@ -69,7 +69,9 @@ const styles = StyleSheet.create({
   bgImage: {
     flex: 1,
     // justifyContent: 'center',
-    alignItems: "center"
+    alignItems: "center",
+    width:'100%',
+    height:'100%'
   }
 
 });
