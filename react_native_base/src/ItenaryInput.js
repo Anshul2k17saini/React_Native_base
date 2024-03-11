@@ -51,7 +51,7 @@ export default function Itenaryinput(props) {
         Keyboard.dismiss()
         setLoader(true)
         console.log("hello befor response");
-        const response = await fetch('http://travelitr-env.eba-3mbzvrv8.ap-south-1.elasticbeanstalk.com/userTravelInputsave', {
+        const response = await fetch('http://travelitr-app-env.eba-uj4w8j89.ap-south-1.elasticbeanstalk.com/userTravelInputsave', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
