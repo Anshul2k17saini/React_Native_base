@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, ImageBackground, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Image, ImageBackground, StatusBar } from 'react-native';
 import Btn from './Btn';
 import { darkGreen } from './Constant';
 
@@ -25,9 +25,10 @@ export default function Home(props) {
             </View>
           </View>
           <View style={{alignItems: "center", marginTop: 20}}>
-            <Btn bgColor={'#a75bfe'} textColor='white' btnLabel="Let's get started" Press={getstartedbtn} />
+            <Btn bgColor={'#a75bfe'} textColor='white' style={{ marginBottom: 115 }} btnLabel="Let's get started" Press={getstartedbtn} />
           </View>
         </View>
+        <StatusBar style="auto" barStyle="light-content" backgroundColor="black" animated={true} />
       </ImageBackground>
     // </View>
   );

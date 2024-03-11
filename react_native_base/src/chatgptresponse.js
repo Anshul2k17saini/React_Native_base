@@ -18,12 +18,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#6a5acd', // Purple background color
-    padding: 20,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    width:'100%',
-    height:'100%'
-    
   },
   title: {
     fontSize: 24,

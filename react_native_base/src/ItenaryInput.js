@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View, Pressable, ActivityIndicator, Dimensions, Keyboard } from 'react-native';
+import { Text, StyleSheet, View, Pressable, ActivityIndicator, Dimensions, Keyboard, StatusBar  } from 'react-native';
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -51,7 +51,7 @@ export default function Itenaryinput(props) {
         Keyboard.dismiss()
         setLoader(true)
         console.log("hello befor response");
-        const response = await fetch('http://192.168.114.191:5000/userTravelInputsave', {
+        const response = await fetch('http://travelitr-env.eba-3mbzvrv8.ap-south-1.elasticbeanstalk.com/userTravelInputsave', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -176,6 +176,7 @@ export default function Itenaryinput(props) {
             <ActivityIndicator size="large" color={'#a75bfe'} />
             <Text style={{ marginTop: 10,textAlign: 'center',fontWeight: 'bold', fontSize: 16, color: '#333' }}>Generating Itinerary.. Please wait..</Text>
           </View>
+          <StatusBar style="auto" barStyle="light-content" backgroundColor="black" animated={true} />
         </View>
       } 
     </View>

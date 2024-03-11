@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Pressable, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Pressable, Image, StatusBar  } from 'react-native';
 import SidebarMenu from './SidebarMenu';
 import Btn from './Btn';
 import { AntDesign } from '@expo/vector-icons';
@@ -37,6 +37,7 @@ const Welcome = ({ navigation }) => {
         </TouchableOpacity>
         <SidebarMenu isOpen={isSidebarOpen} onClose={toggleSidebar} navigation={navigation} />
       </View>
+      <StatusBar style="auto" barStyle="light-content" backgroundColor="black" animated={true} />
     </ImageBackground>
   );
 };
