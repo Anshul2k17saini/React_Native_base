@@ -50,8 +50,8 @@ export default function Itenaryinput(props) {
       try {
         Keyboard.dismiss()
         setLoader(true)
-        console.log("hello befor response");
-        const response = await fetch('http://travelitr-app-env.eba-uj4w8j89.ap-south-1.elasticbeanstalk.com/userTravelInputsave', {
+        console.log("hello befor response"); 
+        const response = await fetch('http://backend-env.eba-iuc4vcib.ap-south-1.elasticbeanstalk.com/userTravelInputsave', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -176,7 +176,6 @@ export default function Itenaryinput(props) {
             <ActivityIndicator size="large" color={'#a75bfe'} />
             <Text style={{ marginTop: 10,textAlign: 'center',fontWeight: 'bold', fontSize: 16, color: '#333' }}>Generating Itinerary.. Please wait..</Text>
           </View>
-          <StatusBar style="auto" barStyle="light-content" backgroundColor="black" animated={true} />
         </View>
       } 
     </View>

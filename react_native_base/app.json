@@ -18,7 +18,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package":"com.TravelITR", 
+      "package": "com.TravelITR",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
@@ -30,7 +30,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "b9abfb6c-76b9-4531-8890-cfa10b4463e6"
+        "projectId": "083c3bdd-145e-4440-93a4-b2eb872f071c"
       }
     }
   }
