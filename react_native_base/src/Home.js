@@ -1,78 +1,100 @@
-import { Text, View, StyleSheet, Image, ImageBackground, StatusBar } from 'react-native';
+// 
+
+import React from 'react';
+import { View, Text, StyleSheet, Image, StatusBar } from 'react-native';
 import Btn from './Btn';
-import { darkGreen } from './Constant';
 
 export default function Home(props) {
 
   const getstartedbtn = () => {
-    //props.navigation.navigate("Login");
-    props.navigation.navigate("Welcome");
+    props.navigation.navigate("UserProfile");
   }
+
   return (
-    // <View style={styles.container}>
-      <ImageBackground  source={require('./assets/purple.png')} resizeMode="cover" style={styles.bgImage}>
-        <View style={{ flex: 1, width:'100%',height: '100%'}}>
-          <View style={{ alignItems: "center", paddingTop: 150, paddingBottom: 100 }}>
-            <Text style={{ fontSize: 60 }}>TravelITR</Text>
-            <View>
-              <Image style={{height: 150, width: 150, marginTop: 50}} source={require('./assets/travel.png')} />
-            </View>
-          </View>
-          <View>
-            <View>
-              <Text style={styles.description}>Feeling lost in trip planning? Let's turn confusion into excitement! 🌍✨ Plan your adventure effortlessly with us.</Text>
-              <Text></Text>
-            </View>
-          </View>
-          <View style={{alignItems: "center", marginTop: 20}}>
-            <Btn bgColor={'#a75bfe'} textColor='white' style={{ marginBottom: 115 }} btnLabel="Let's get started" Press={getstartedbtn} />
-          </View>
+    <View style={styles.container}>
+      {/* Fixed Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>TravelITR</Text>
+      </View>
+
+      <View style={styles.content}>
+        {/* Logo and Image */}
+        <View style={styles.logoContainer}>
+          <Image style={styles.logoImage} source={require('./assets/travel.png')} />
         </View>
-        <StatusBar style="auto" barStyle="light-content" backgroundColor="black" animated={true} />
-      </ImageBackground>
-    // </View>
+
+        {/* Description */}
+        <Text style={styles.description}>
+          Feeling lost in trip planning? Let's turn confusion into excitement! 🌍✨ Plan your adventure effortlessly with us.
+        </Text>
+
+        {/* Get Started Button */}
+        <View style={styles.buttonContainer}>
+          <Btn 
+            bgColor={'#a75bfe'} 
+            textColor='white' 
+            style={{ marginBottom: 20 }} 
+            btnLabel="Let's get started" 
+            Press={getstartedbtn} 
+          />
+        </View>
+      </View>
+
+      {/* StatusBar */}
+      <StatusBar barStyle="light-content" backgroundColor="#8A2BE2" animated={true} />
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff', // Purple background
+  },
+  header: {
     paddingHorizontal: 20,
-    // marginVertical: 250,
+    paddingTop: 50,
+    paddingBottom: 20,
+    backgroundColor: '#8A2BE2',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e9ecef',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1000,
+    alignItems: 'center',
   },
-  appLogo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+  headerTitle: {
+    fontSize: 32,
+    fontWeight: '700',
+    color: '#fff',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 10,
-    // color: "white"
+  content: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 150, // To account for fixed header
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+  },
+  logoImage: {
+    height: 150,
+    width: 150,
   },
   description: {
     fontSize: 20,
-    marginLeft: 30,
-    marginRight: 30,
+    marginHorizontal: 30,
     textAlign: "center",
-    color: "black",
-    lineHeight: 30,  // Adjust line height for better readability
-
+    color: "#8A2BE2'",
+    lineHeight: 30,
+    marginBottom: 40,
   },
-  getStartedButton: {
-    backgroundColor: '#007bff',
-    borderRadius: 5,
-    padding: 10,
+  buttonContainer: {
+    alignItems: 'center',
+    width: '100%',
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-  },
-  bgImage: {
-    flex: 1,
-    // justifyContent: 'center',
-    alignItems: "center",
-    width:'100%',
-    height:'100%'
-  }
-
 });

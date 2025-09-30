@@ -1,307 +1,221 @@
-import { Text, StyleSheet, Modal, TextInput, Button, Image, Dimensions, StatusBar, Pressable, TouchableOpacity, View } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import Btn from './Btn';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  StatusBar,
+  Alert,
+  Modal,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ActivityIndicator,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Btn from "./Btn";
 
-export default function UserProfile() {
-
-  const [username, setUsername] = useState('');
-  const [EmailId, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
-  const [Phoneno, setPhoneno] = useState('');
-
-  const datae = {
-    username: username,
-    emailid: EmailId,
-    phoneno: Phoneno,
-    password: Password,
-  };
-
-  const [data, setData] = useState(datae);
+export default function Login({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLoadingOtp, setIsLoadingOtp] = useState(false);
+  const [jwt, setJwt] = useState(null);
 
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-    fetch(`http://192.168.122.191:8081/updateUser/username=${username}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+  // Check if JWT exists when app opens
+  useEffect(() => {
+    const checkLogin = async () => {
+      const token = await AsyncStorage.getItem("jwt");
+      if (token) {
+        setJwt(token);
+        navigation.replace("Welcome");
       }
-      return response.json();
-    })
-    .then(data => {
-      console.log('User data updated:', data);
-      // Handle success or update state as needed
-    })
-    .catch(error => {
-      console.error('Error in updating user data:', error.message);
-      // Handle error or show an error message
-    });
-    
+    };
+    checkLogin();
+  }, []);
+
+  // --- API Calls ---
+  const signupOrLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Enter email and password");
+      return;
+    }
+
+    try {
+      setIsLoadingOtp(true); // show "please wait" modal
+
+      const res = await fetch(`http://travelitry-app-env.eba-muk2mpsw.ap-south-1.elasticbeanstalk.com/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      console.log("📦 Signup response:", data);
+
+      setIsLoadingOtp(false); // stop loading
+
+      if (res.ok) {
+        setIsModalVisible(true); // open OTP modal
+      } else {
+        Alert.alert("Error", data.message || "Signup/Login failed");
+      }
+    } catch (err) {
+      setIsLoadingOtp(false);
+      Alert.alert("Error", err.message);
+    }
   };
 
-  // useEffect(() => {
-  //   fetch('https://api.example.com/data') // Replace with your API endpoint
-  //     .then(response => response.json())
-  //     .then(jsonData => {
-  //       setData(jsonData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
+  const verifyEmailOtp = async () => {
+    if (!otp) {
+      Alert.alert("Error", "Enter verification code first");
+      return;
+    }
+    try {
+      const res = await fetch(`http://travelitry-app-env.eba-muk2mpsw.ap-south-1.elasticbeanstalk.com/auth/verify-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp }),
+      });
 
-  const updateform = (
-    <View style={styles.containerofSaveinput}>
-      <View>
-        <TextInput
-          style={styles.field}//if condition for style
-          placeholder="Username"
-          placeholderTextColor={"grey"}
-          onChangeText={text => setUsername(text)}
-          />
-      </View>
-      <View>
-        <TextInput
-          style={styles.field}//if condition for style
-          placeholderTextColor={"grey"}
-          placeholder="Email"
-          onChangeText={text => setEmail(text)}
-          />
-      </View>
-      <View>
-        <TextInput
-          style={styles.field}//if condition for style
-          placeholder="Password"
-          placeholderTextColor={"grey"}
-          secureTextEntry
-          onChangeText={text => setPassword(text)}
-          />
-      </View>
-      <View>
-        <TextInput
-          style={styles.field}//if condition for style
-          placeholder="Confirm Password"
-          placeholderTextColor={"grey"}
-          secureTextEntry={true} 
-         ///onChangeText={text => setConfPassword(text)}
-          />
-      </View>
-      <View>
-        <TextInput
-          style={styles.field}//if condition for style
-          placeholder="Phoneno"
-          placeholderTextColor={"grey"}
-          secureTextEntry
-          onChangeText={text => setPhoneno(text)}
-        />
-      </View>
-      <View style={{marginTop: 50, alignItems: "center"}}>
-        <Btn bgColor='#a75bfe' textColor='white' btnLabel="Save"  Press={toggleModal} />
-      </View>
-      </View>
-  );
+      const data = await res.json();
+      console.log("📦 Verify response:", data);
+
+      if (res.ok) {
+        await AsyncStorage.setItem("jwt", data.token);
+        setJwt(data.token);
+        setIsModalVisible(false);
+        navigation.replace("Welcome");
+      } else {
+        Alert.alert("Invalid Code", data.message || "Verification failed");
+      }
+    } catch (err) {
+      Alert.alert("Error", err.message);
+    }
+  };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', paddingTop: StatusBar.currentHeight }}>
-      <View style={{ borderWidth: 1, padding: 10, borderRadius: 30, alignItems: "center", justifyContent: "center" }}>
-        <Image
-          style={{ height: 200, width: 200 }}
-          source={{
-            uri: `https://robohash.org/${data?.name}`,
-          }}
-        />
-      </View>
-      <View style={{ marginBottom: 20, width: "100%", paddingHorizontal: 25 }}>
-        <View style={{ backgroundColor: "rgba(210, 215, 211, .5)", padding: 5, borderRadius: 10, paddingHorizontal: 10}}>
-          <Text style={{ }}>Name:</Text>
-          <Text style={{ fontSize: 26 }}>{data?.name}</Text>
-        </View>
-        <View style={{marginTop: 20,  backgroundColor: "rgba(210, 215, 211, .5)", padding: 5, borderRadius: 10, paddingHorizontal: 10}}>
-          <Text style={{ }}>Age:</Text>
-          <Text style={{ fontSize: 26 }}>{data?.age}</Text>
-        </View>
-      </View>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
       <View style={styles.container}>
-       
-        <Pressable onPress={toggleModal} style={{backgroundColor: "#a75bfe", padding: 15, paddingHorizontal: 30, borderRadius: 25}}>
-          <Text style={{color: "white", fontSize: 18}}>Edit Profile</Text>
-        </Pressable>
-        <Modal visible={isModalVisible} animationType="slide">
-          {updateform}
+        <StatusBar backgroundColor="#a75bfe" barStyle="light-content" />
+
+        {/* Purple Top */}
+        <View style={styles.topHalf}>
+          <View style={styles.logoContainer}>
+            <Image style={styles.logoImage} source={require("./assets/travel.png")} />
+            <Text style={styles.brand}>TravelITR</Text>
+          </View>
+        </View>
+
+        {/* White Bottom */}
+        <View style={styles.bottomHalf}>
+          <Text style={styles.title}>Signup / Login</Text>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email"
+            placeholderTextColor="grey"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            onChangeText={setEmail}
+          />
+
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Password"
+            placeholderTextColor="grey"
+            secureTextEntry
+            onChangeText={setPassword}
+          />
+
+          <Btn
+            bgColor="#a75bfe"
+            textColor="white"
+            btnLabel="Signup / Login"
+            Press={signupOrLogin}
+          />
+        </View>
+
+        {/* Loading Modal */}
+        <Modal visible={isLoadingOtp} transparent animationType="fade">
+          <View style={styles.modalContainer}>
+            <View style={styles.modalBox}>
+              <ActivityIndicator size="large" color="#a75bfe" />
+              <Text style={{ marginTop: 10, fontSize: 16 }}>
+                Hang tight, we’re sending a verification code to your email.
+              </Text>
+            </View>
+          </View>
+        </Modal>
+
+        {/* Email OTP Modal */}
+        <Modal visible={isModalVisible} transparent animationType="slide">
+          <View style={styles.modalContainer}>
+            <View style={styles.modalBox}>
+              <Text style={styles.modalTitle}>Verify Your Email</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Verification Code"
+                placeholderTextColor="grey"
+                keyboardType="number-pad"
+                onChangeText={setOtp}
+              />
+              <Btn
+                bgColor="#a75bfe"
+                textColor="white"
+                btnLabel="Verify"
+                Press={verifyEmailOtp}
+              />
+            </View>
+          </View>
         </Modal>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-  },
-  input: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    padding: 10,
-  },
-  field:{
-    width: '100%',
-    height: 50,
-    borderColor: '#ccc',
-    // borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    borderBottomWidth: 1,
-    // marginBottom: 5,
-    // marginBottom: 10,
-    marginTop: 10,
-    fontSize: 16,
-    color: '#333',
-  },
-  containerofSaveinput:{
+  container: { flex: 1, backgroundColor: "white" },
+  topHalf: {
     flex: 1,
-    justifyContent: 'center',
-    // alignItems: 'center',
-    padding: 20,
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import { Text, StyleSheet, View, Modal, TextInput, Button, Image, Dimensions, StatusBar, Pressable } from 'react-native';
-import React, { useState, useEffect } from 'react';
-
-export default function UserProfile() {
-  const datae = {
-    name: 'anshul',
-    age: '24',
-    email: 'anshul@gmail.com',
-  };
-
-  const [data, setData] = useState(datae);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const toggleModal = () => {
-    setIsModalVisible(!isModalVisible);
-  };
-
-  // useEffect(() => {
-  //   fetch('https://api.example.com/data') // Replace with your API endpoint
-  //     .then(response => response.json())
-  //     .then(jsonData => {
-  //       setData(jsonData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
-
-  const updateform = (
-    <View style={styles.modalContent}>
-      <Text>Enter your information:</Text>
-      <TextInput placeholder="Name" style={styles.input} />
-      <TextInput placeholder="Email" style={styles.input} />
-      <Button title="Submit" onPress={toggleModal} />
-    </View>
-  );
-
-  return (
-    <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', paddingTop: StatusBar.currentHeight }}>
-      <View style={{ borderWidth: 1, padding: 10, borderRadius: 30, alignItems: "center", justifyContent: "center" }}>
-        <Image
-          style={{ height: 200, width: 200 }}
-          source={{
-            uri: `https://robohash.org/${data?.name}`,
-          }}
-        />
-      </View>
-      <View style={{ marginBottom: 20, width: "100%", paddingHorizontal: 25 }}>
-        <View style={{ backgroundColor: "rgba(210, 215, 211, .5)", padding: 5, borderRadius: 10, paddingHorizontal: 10}}>
-          <Text style={{ }}>Name:</Text>
-          <Text style={{ fontSize: 26 }}>{data?.name}</Text>
-        </View>
-        <View style={{marginTop: 20,  backgroundColor: "rgba(210, 215, 211, .5)", padding: 5, borderRadius: 10, paddingHorizontal: 10}}>
-          <Text style={{ }}>Age:</Text>
-          <Text style={{ fontSize: 26 }}>{data?.age}</Text>
-        </View>
-      </View>
-      <View style={styles.container}>
-        {/* <Button title="Edit Profile" onPress={toggleModal} /> }
-        <Pressable onPress={toggleModal} style={{backgroundColor: "#a75bfe", padding: 15, paddingHorizontal: 30, borderRadius: 25}}>
-          <Text style={{color: "white", fontSize: 18}}>Edit Profile</Text>
-        </Pressable>
-        <Modal visible={isModalVisible} animationType="slide">
-          {updateform}
-        </Modal>
-      </View>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#a75bfe",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
   },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-  },
+  brand: { color: "white", fontSize: 32, fontWeight: "bold" },
+  bottomHalf: { flex: 1, padding: 20, justifyContent: "center" },
+  title: { fontSize: 22, fontWeight: "600", marginBottom: 20, color: "#333" },
   input: {
-    borderColor: 'gray',
+    width: "100%",
+    height: 50,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 15,
     borderWidth: 1,
-    marginBottom: 10,
-    padding: 10,
+    marginBottom: 20,
+    fontSize: 16,
+    color: "#333",
   },
-});*/
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalBox: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 12,
+    width: "80%",
+    alignItems: "center",
+  },
+  logoContainer: { alignItems: "center", justifyContent: "center", marginBottom: 10 },
+  logoImage: { width: 120, height: 120, marginRight: 10 },
+  modalTitle: { fontSize: 20, fontWeight: "bold", marginBottom: 15 },
+});

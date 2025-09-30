@@ -1,49 +1,77 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, StatusBar } from 'react-native';
 
 const Chatgptresponse = ({ route }) => {
   const { data } = route.params;
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.responseContainer}>
+    <View style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="black" animated={true} />
+
+      {/* Header */}
+      <View style={styles.header}>
         <Text style={styles.title}>Your Itinerary</Text>
-        <Text style={styles.responseText}>{data}</Text>
+        <Text style={styles.subtitle}>Here’s the travel plan we created for you ✈️</Text>
       </View>
-    </ScrollView>
+
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Card */}
+        <View style={styles.responseCard}>
+          <Text style={styles.responseText}>{data}</Text>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    backgroundColor: '#6a5acd', // Purple background color
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
+    backgroundColor: '#8A2BE2',
+  },
+  header: {
+    paddingHorizontal: 20,
+    paddingTop: 40,
+    paddingBottom: 20,
+    backgroundColor: '#8A2BE2',
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#fff',
+    marginBottom: 5,
     textAlign: 'center',
-    color: '#fff', // White text color
   },
-  responseContainer: {
-    backgroundColor: '#000', // Black background color
-    borderRadius: 10,
+  subtitle: {
+    fontSize: 16,
+    color: 'yellow',
+    fontWeight: '400',
+    textAlign: 'center',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
     padding: 20,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    marginTop: 30, 
-    marginBottom: 5, 
+    paddingBottom: 40,
+  },
+  responseCard: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: 'yellow',
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 4,
   },
   responseText: {
     fontSize: 16,
-    color: '#fff', // White text color
+    color: 'black',
+    lineHeight: 22,
   },
 });
 
